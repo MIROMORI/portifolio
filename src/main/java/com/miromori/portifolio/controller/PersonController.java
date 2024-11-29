@@ -3,6 +3,8 @@ package com.miromori.portifolio.controller;
 import com.miromori.portifolio.model.Person;
 import com.miromori.portifolio.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,31 +17,31 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}",
+    produces = MediaType.APPLICATION_JSON_VALUE)
     public Person findById(@PathVariable(value = "id") Long id){
-        return personService.findById(id).orElse(null);
+        return personService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> findAll(){
         return personService.findAll();
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person create(@RequestBody Person person){
         return personService.create(person);
     }
 
-    @PutMapping
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person){
         return personService.update(person);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable(value = "id") Long id){
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){
         personService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
-    public static class CustomizedResponseEntityExceptionHandler {
-    }
 }
