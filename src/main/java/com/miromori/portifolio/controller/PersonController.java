@@ -40,4 +40,6 @@ public class PersonController {
         personService.delete(id);
     }
 
+    public static class CustomizedResponseEntityExceptionHandler {
+    }
 }
