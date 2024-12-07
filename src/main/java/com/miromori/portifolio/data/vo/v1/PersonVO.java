@@ -1,42 +1,25 @@
-package com.miromori.portifolio.model;
-
-import jakarta.persistence.*;
+package com.miromori.portifolio.data.vo.v1;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+public class PersonVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -6382814378311197852L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
 
-    @Column(nullable = false, length = 80)
     private String address;
 
-    @Column(nullable = false, length = 6)
     private String gender;
 
-    public Person(String firstName, String lastName, String address, String gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.gender = gender;
-    }
-
-    public Person() {
+    public PersonVO() {
     }
 
     public Long getId() {
@@ -83,7 +66,7 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        PersonVO person = (PersonVO) o;
         return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
     }
 

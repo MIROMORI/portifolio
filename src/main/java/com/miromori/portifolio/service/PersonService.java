@@ -1,10 +1,13 @@
 package com.miromori.portifolio.service;
 
+import com.miromori.portifolio.data.vo.v1.PersonVO;
 import com.miromori.portifolio.exceptions.ResourceNotFoundException;
+import com.miromori.portifolio.mapper.PersonMapper;
 import com.miromori.portifolio.model.Person;
 import com.miromori.portifolio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
@@ -18,22 +21,30 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public Person findById(Long id){
+    @Autowired
+    private PersonMapper mapper;
+
+    public PersonVO findById(Long id){
         logger.info("finding one person");
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found with this ID"));
+        Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found with this ID"));
+
+        return mapper.personToPersonVO(person);
     }
 
-    public List<Person> findAll(){
+    public List<PersonVO> findAll(){
         logger.info("finding all persons");
-        return repository.findAll();
+        List<Person> persons = repository.findAll();
+
+        return mapper.personsToPersonVOs(persons);
     }
 
-    public Person create(Person person){
+    public PersonVO create(PersonVO person){
         logger.info("creating person");
-        return repository.save(person);
+        repository.save(mapper.personVOToPerson(person));
+        return person;
     }
 
-    public Person update(Person person){
+    public PersonVO update(PersonVO person){
         logger.info("creating person");
 
         Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("Person not found with this ID"));
@@ -43,7 +54,9 @@ public class PersonService {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(person);
+        Person save = repository.save(entity);
+
+        return mapper.personToPersonVO(save);
     }
 
     public void delete(Long id){
