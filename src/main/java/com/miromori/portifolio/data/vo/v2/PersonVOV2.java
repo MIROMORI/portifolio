@@ -1,48 +1,37 @@
-package com.miromori.portifolio.model;
-
-import jakarta.persistence.*;
+package com.miromori.portifolio.data.vo.v2;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+public class PersonVOV2 implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -6382814378311197852L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
 
-    @Column(nullable = false, length = 80)
     private String address;
 
-    @Column(nullable = false, length = 6)
     private String gender;
 
-    @Column
     private Date birthDate;
 
-    public Person(Long id, String firstName, String lastName, String address, String gender, Date birthDate) {
+    public PersonVOV2() {
+    }
+
+    public PersonVOV2(Long id, String firstName, String lastName, String address, String gender, Date birthDay) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
-        this.birthDate = birthDate;
-    }
-
-    public Person() {
+        this.birthDate = birthDay;
     }
 
     public Long getId() {
@@ -97,7 +86,7 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        PersonVOV2 person = (PersonVOV2) o;
         return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
     }
 
@@ -108,7 +97,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "PersonVOv2{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

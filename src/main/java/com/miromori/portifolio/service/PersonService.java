@@ -1,6 +1,7 @@
 package com.miromori.portifolio.service;
 
 import com.miromori.portifolio.data.vo.v1.PersonVO;
+import com.miromori.portifolio.data.vo.v2.PersonVOV2;
 import com.miromori.portifolio.exceptions.ResourceNotFoundException;
 import com.miromori.portifolio.mapper.PersonMapper;
 import com.miromori.portifolio.model.Person;
@@ -41,6 +42,12 @@ public class PersonService {
     public PersonVO create(PersonVO person){
         logger.info("creating person");
         repository.save(mapper.personVOToPerson(person));
+        return person;
+    }
+
+    public PersonVOV2 createV2(PersonVOV2 person){
+        logger.info("creating person");
+        repository.save(mapper.personVOV2ToPerson(person));
         return person;
     }
 
