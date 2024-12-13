@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -29,7 +30,8 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 6)
     private String gender;
 
-    public Person(String firstName, String lastName, String address, String gender) {
+    public Person(Long id, String firstName, String lastName, String address, String gender, Date birthDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -78,6 +80,7 @@ public class Person implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 
     @Override
     public boolean equals(Object o) {
