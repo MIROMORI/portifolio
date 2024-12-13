@@ -30,16 +30,12 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 6)
     private String gender;
 
-    @Column
-    private Date birthDate;
-
     public Person(Long id, String firstName, String lastName, String address, String gender, Date birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
-        this.birthDate = birthDate;
     }
 
     public Person() {
@@ -85,13 +81,6 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -114,7 +103,6 @@ public class Person implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", gender='" + gender + '\'' +
-                ", birthDate=" + birthDate +
                 '}';
     }
 }
